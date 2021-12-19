@@ -6,3 +6,6 @@
 
 # HomeDashboard Renderer Core Components
 Contains core components and basic renderers for HomeDashboard UIs.
+
+# Links
+- [HomeDashboard Documentation](https://github.com/tommzn/hdb-docs/wiki)
