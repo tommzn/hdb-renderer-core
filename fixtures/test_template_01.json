@@ -1,0 +1,7 @@
+{
+    "Position": {
+        "Left": {{ .Anchor.X }},
+        "Top": {{ .Anchor.Y }},
+        "Value": "{{ .Event.FromCurrency }}"
+    }
+}
