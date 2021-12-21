@@ -1,5 +1,10 @@
 package core
 
+import (
+	"github.com/golang/protobuf/proto"
+	core "github.com/tommzn/hdb-core"
+)
+
 // Template renders content.
 type Template interface {
 
@@ -7,22 +12,19 @@ type Template interface {
 	RenderWith(interface{}) (string, error)
 }
 
-// UITemplate is used to render content for eink displays.
-type UITemplate interface {
-
-	// SetAnchor for the top left corner of a canvas.
-	SetAnchor(Point)
-
-	// GetSize returns height and width a rendered canvas uses.
-	GetSize() Size
-
-	// Render generated content based assigned position and event values.
-	Render() (string, error)
-}
-
 // DataSource is used to get data for templates.
 type DataSource interface {
 
-	// Get should return data for template rendering.
-	Get() (interface{}, error)
+	// Latest willreturn latest element for given datasource.
+	Latest(core.DataSource) (proto.Message, error)
+}
+
+// Renderer generates content based on templates and event data.
+type Renderer interface {
+
+	// Size returns height and width a rendered element uses.
+	Size() Size
+
+	// Content returns rendered elements.
+	Content() (string, error)
 }

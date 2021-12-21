@@ -1,0 +1,3 @@
+<h1>Test Template</h1>
+<p>Left: {{ .Anchor.X }}</p>
+<p>Top: {{ .Anchor.Y }}</p>
