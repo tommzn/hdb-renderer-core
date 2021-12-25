@@ -20,3 +20,8 @@ type Point struct {
 type Size struct {
 	Height, Width int
 }
+
+// Spacing defines top, left right and bottom distance to other elements.
+type Spacing struct {
+	Top, Right, Bottom, Left int
+}
