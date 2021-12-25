@@ -13,10 +13,10 @@ type FileTemplate struct {
 
 // Point is used to define a position based on y/> coordinates.
 type Point struct {
-	X, Y int64
+	X, Y int
 }
 
 // Size a canvas uses in a template.
 type Size struct {
-	Height, Width int64
+	Height, Width int
 }
