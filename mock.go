@@ -49,6 +49,29 @@ func (mock *dataSourceMock) Latest(datasource core.DataSource) (proto.Message, e
 	}, nil
 }
 
+func (mock *dataSourceMock) All(datasource core.DataSource) ([]proto.Message, error) {
+
+	if mock.returnNil {
+		return nil, nil
+	}
+	if mock.returnError {
+		return nil, errors.New("Error occured.")
+	}
+	return []proto.Message{
+		&events.ExchangeRate{
+			FromCurrency: "USD",
+			ToCurrency:   "EUR",
+			Rate:         0.8765,
+			Timestamp:    timestamppb.New(time.Now()),
+		},
+		&events.ExchangeRate{
+			FromCurrency: "EUR",
+			ToCurrency:   "USD",
+			Rate:         1.23445,
+			Timestamp:    timestamppb.New(time.Now()),
+		}}, nil
+}
+
 func (renderer *rendererMock) Size() Size {
 	return Size{Height: 0, Width: 0}
 }

@@ -17,6 +17,9 @@ type DataSource interface {
 
 	// Latest willreturn latest element for given datasource.
 	Latest(core.DataSource) (proto.Message, error)
+
+	// All returns a list of available events for passed datasource.
+	All(core.DataSource) ([]proto.Message, error)
 }
 
 // Renderer generates content based on templates and event data.
