@@ -1,6 +1,7 @@
 package core
 
 import (
+	"context"
 	"errors"
 	"time"
 
@@ -108,4 +109,10 @@ func (renderer *rendererMock) Content() (string, error) {
 		Event:  event,
 	}
 	return renderer.template.RenderWith(data)
+}
+
+// ObserveDataSource will block until passed context has been canceled.
+// For this mock there's no message observing implemented.
+func (renderer *rendererMock) ObserveDataSource(ctx context.Context) {
+	<-ctx.Done()
 }
