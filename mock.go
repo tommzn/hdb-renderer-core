@@ -72,6 +72,24 @@ func (mock *dataSourceMock) All(datasource core.DataSource) ([]proto.Message, er
 		}}, nil
 }
 
+func (mock *dataSourceMock) Observe(filter []core.DataSource) <-chan proto.Message {
+
+	eventChan := make(chan proto.Message, 3)
+	eventChan <- &events.ExchangeRate{
+		FromCurrency: "USD",
+		ToCurrency:   "EUR",
+		Rate:         0.8765,
+		Timestamp:    timestamppb.New(time.Now()),
+	}
+	eventChan <- &events.ExchangeRate{
+		FromCurrency: "EUR",
+		ToCurrency:   "USD",
+		Rate:         1.23445,
+		Timestamp:    timestamppb.New(time.Now()),
+	}
+	return eventChan
+}
+
 func (renderer *rendererMock) Size() Size {
 	return Size{Height: 0, Width: 0}
 }
