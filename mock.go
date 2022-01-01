@@ -73,7 +73,7 @@ func (mock *dataSourceMock) All(datasource core.DataSource) ([]proto.Message, er
 		}}, nil
 }
 
-func (mock *dataSourceMock) Observe(filter []core.DataSource) <-chan proto.Message {
+func (mock *dataSourceMock) Observe(filter *[]core.DataSource) <-chan proto.Message {
 
 	eventChan := make(chan proto.Message, 3)
 	eventChan <- &events.ExchangeRate{

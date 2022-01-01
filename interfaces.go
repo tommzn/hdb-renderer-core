@@ -26,7 +26,7 @@ type DataSource interface {
 	// Observe returns a channels to listen for new events.
 	// You can pass a filter to listen for events from specific datasource, only.
 	// Datasource will not block if channel capacity is reached. Events will be skipped!
-	Observe([]core.DataSource) <-chan proto.Message
+	Observe(*[]core.DataSource) <-chan proto.Message
 }
 
 // Renderer generates content based on templates and event data.
