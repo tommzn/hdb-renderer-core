@@ -1,0 +1,6 @@
+
+hdb:
+  template_dir: "fixtures"
+  indoorclimate:
+    template: "test_template_03.json"
+    

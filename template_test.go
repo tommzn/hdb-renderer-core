@@ -34,3 +34,14 @@ func (suite *TemplateTestSuite) TestTemplateFunctions() {
 	suite.NotEqual("", content)
 	assertTemplateHash(suite.Assert(), content, "115aeb6ba78cdb6e18d9f74eddcd54c3458e0483")
 }
+
+func (suite *TemplateTestSuite) TestCreateTemplateFromConfig() {
+
+	template := NewFileTemplateFromConfig(loadConfigForTest(nil), "hdb.template_dir", "hdb.indoorclimate.template")
+	data := mockData{Anchor: Point{X: 100, Y: 150}}
+
+	content, err := template.RenderWith(data)
+	suite.Nil(err)
+	suite.NotEqual("", content)
+	assertTemplateHash(suite.Assert(), content, "115aeb6ba78cdb6e18d9f74eddcd54c3458e0483")
+}
