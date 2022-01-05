@@ -24,8 +24,6 @@ func (suite *MockTestSuite) TestRenderContent() {
 	suite.Nil(err)
 	suite.NotEqual("", content)
 	assertTemplateHash(suite.Assert(), content, "d76b69b0f79044e8f3df3222b1a127bf57bbd472")
-
-	suite.Equal(Size{Height: 0, Width: 0}, renderer.Size())
 }
 
 func (suite *MockTestSuite) TestRenderContentWithError() {

@@ -1,8 +1,6 @@
 package core
 
 import (
-	"context"
-
 	"github.com/golang/protobuf/proto"
 	core "github.com/tommzn/hdb-core"
 )
@@ -32,13 +30,6 @@ type DataSource interface {
 // Renderer generates content based on templates and event data.
 type Renderer interface {
 
-	// Size returns height and width a rendered element uses.
-	Size() Size
-
 	// Content returns rendered elements.
 	Content() (string, error)
-
-	// ObserveDataSource will start listen for new events provided by used datasource to get updated data for rendering.
-	// Uses passed context to wait for cancelations.
-	ObserveDataSource(context.Context)
 }
