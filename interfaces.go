@@ -33,3 +33,14 @@ type Renderer interface {
 	// Content returns rendered elements.
 	Content() (string, error)
 }
+
+// TimestampManager checks timestamp of events.
+type TimestampManager interface {
+
+	// IsLatest will returns true if there's no similar event in local storage
+	// or if local timestamp is older than in passed event.
+	IsLatest(proto.Message) bool
+
+	// Add timestamp of passed event to local storage for later checks.
+	Add(proto.Message)
+}
