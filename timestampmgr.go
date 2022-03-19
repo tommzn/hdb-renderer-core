@@ -19,7 +19,19 @@ func NewTimestampManager() TimestampManager {
 // or if local timestamp is older than in passed event.
 func (mgr *EventTimestampManager) IsLatest(event proto.Message) bool {
 
-	typeName := getTypeName(event)
+	typeName := getTypeName(event, "")
+	eventTimestamo := eventTimestamo(event)
+	if currentTimestamo, ok := mgr.timestamps[typeName]; ok {
+		return currentTimestamo.Before(eventTimestamo)
+	}
+	return true
+}
+
+// IsLatestWithSuffix acts in the same way as IsLatest with an optional
+// identifier suffix.
+func (mgr *EventTimestampManager) IsLatestWithSuffix(event proto.Message, tyoeSuffix string) bool {
+
+	typeName := getTypeName(event, tyoeSuffix)
 	eventTimestamo := eventTimestamo(event)
 	if currentTimestamo, ok := mgr.timestamps[typeName]; ok {
 		return currentTimestamo.Before(eventTimestamo)
@@ -29,19 +41,25 @@ func (mgr *EventTimestampManager) IsLatest(event proto.Message) bool {
 
 // Add timestamp of passed event to local storage for later checks.
 func (mgr *EventTimestampManager) Add(event proto.Message) {
-	typeName := getTypeName(event)
+	typeName := getTypeName(event, "")
+	mgr.timestamps[typeName] = eventTimestamo(event)
+}
+
+// AddWithSuffix works like Add with an additional type name suffix.
+func (mgr *EventTimestampManager) AddWithSuffix(event proto.Message, tyoeSuffix string) {
+	typeName := getTypeName(event, tyoeSuffix)
 	mgr.timestamps[typeName] = eventTimestamo(event)
 }
 
 // GetTypeName will return name of a type, given by reflect.TypeOf().String.
 // In case of indoor climate events type name will contain datasource suffix as well.
-func getTypeName(event proto.Message) eventTypeName {
+func getTypeName(event proto.Message, tyoeSuffix string) eventTypeName {
 
 	typeName := reflect.TypeOf(event).String()
 	if IndoorClimateData, ok := event.(*events.IndoorClimate); ok {
 		typeName = typeName + IndoorClimateData.Type.String()
 	}
-	return eventTypeName(typeName)
+	return eventTypeName(typeName + tyoeSuffix)
 }
 
 // EventTimestamo returns timestamp from passed event.

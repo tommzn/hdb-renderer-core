@@ -41,6 +41,14 @@ type TimestampManager interface {
 	// or if local timestamp is older than in passed event.
 	IsLatest(proto.Message) bool
 
+	// IsLatestWithSuffix acts in the same way as IsLatest with an optional
+	// identifier suffix.
+	IsLatestWithSuffix(proto.Message, string) bool
+
 	// Add timestamp of passed event to local storage for later checks.
+	// Identifier suffix is optional.
 	Add(proto.Message)
+
+	// AddWithSuffix works like Add with an additional type name suffix.
+	AddWithSuffix(proto.Message, string)
 }

@@ -27,4 +27,11 @@ func (suite *TimestampManagerTestSuite) TestCheckIsLatest() {
 	mgr.Add(event)
 	suite.False(mgr.IsLatest(olderEvent))
 	suite.True(mgr.IsLatest(newerEvent))
+
+	suffix := "XxX"
+	suite.True(mgr.IsLatestWithSuffix(event, suffix))
+	mgr.AddWithSuffix(event, suffix)
+	suite.False(mgr.IsLatestWithSuffix(olderEvent, suffix))
+	suite.True(mgr.IsLatestWithSuffix(newerEvent, suffix))
+
 }
